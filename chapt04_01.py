@@ -125,6 +125,100 @@ print type(bar) #<class '__main__.Bar'>
 
 '''
 isinstance() 判断是否是实例
+在判断类型时也可以使用isinstance()已经被广为接受，isinstance()接受一个类型对象的元组作为参数，这样我们就不必像使用type()时那样写一堆if-elif-else判断了
 '''
 
+def disPlayNumTyep(num):
+    print num, "is",
+    if isinstance(num,(int,long,float,str,Foo)):
+        print "a number of type:",type(num).__name__
+    else:
+        print "not a number at all!!!"
 
+
+disPlayNumTyep(10) #10 is a number of type: int
+disPlayNumTyep(foo)#<__main__.Foo instance at 0x102aa54d0> is a number of type: instance
+disPlayNumTyep(10.0)#10.0 is a number of type: float
+disPlayNumTyep("num") #num is a number of type: str
+
+def displayNumType(num):
+    print num,"is",
+    if type(num)==type(0):
+        print "an integer"
+    elif type(num) == type(0.0):
+        print "a float"
+    elif type(num) == type(0L):
+        print "a long"
+    elif type(num) == type(""):
+        print "a str"
+    else:
+        print "not a number at all"
+
+displayNumType(10) #10 is an integer
+displayNumType(10.0)#10.0 is a float
+displayNumType(100000L)#100000 is a long
+displayNumType("num")#num is a str
+
+def displayNumType2(num):
+    import types
+    print num,"is",
+    if type(num) == types.IntType:
+        print "an integer"
+    elif type(num) == types.FloatType:
+        print "a float",types.FloatType
+    elif type(num) == types.LongType:
+        print "a long ",types.LongType
+    else:
+        print "not a number at all"
+
+displayNumType2(10)#10 is an integer
+displayNumType2(10.0)#10.0 is a float
+
+def displayNumType3(num):
+    from types import IntType,LongType,FloatType
+    print num,"is",
+    if type(num) is IntType:
+        print "an interger"
+    else:
+        print "not a number at all"
+
+
+
+'''
+可变类型 | 列表 字典
+不可变类型 | 数字 字符串 元组
+'''
+
+x="python number and strings"
+print id(x)
+
+i=0
+print id(i) #140198358861168
+
+i=i+1
+print id(i) #140198358861144
+
+aList = ['ammonia',83,85,'lady']
+print aList #['ammonia', 83, 85, 'lady']
+
+print id(aList) #4467266552
+
+aList[1] = aList[1] + 1
+aList[2] = aList[2] + 1
+
+print id(aList) #4467266552
+
+aList.append("object")
+aList.append(aList[2]+1)
+print aList
+print id(aList) #4467266552
+
+'''
+不支持的类型
+1.char 或 byte
+python 没有char 或byte类型来保存单一字符或8位整型。可以用长度为1的字符串表示字符或8为整形
+
+2.python 替你管理内存，因此没有必要访问指针。在python中你可以使用id()函数得到一个对象的身份号，这是最接近于指针的地址。因此你不能控制这个值，所以其实没有太大意义。其实在python中一切都是指针。
+
+3.
+'''
